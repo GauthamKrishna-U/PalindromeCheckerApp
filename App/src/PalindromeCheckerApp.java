@@ -9,6 +9,7 @@ public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
+UC7-Deque-BasedOptimizedPalindromeChecker
 
                 String input = "refer";
 
@@ -34,3 +35,5 @@ public class PalindromeCheckerApp {
                 System.out.println("Is Palindrome?: " + isPalindrome);
             }
         }
+=======
+ main
