@@ -10,14 +10,27 @@ public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
 
-                String input = "level";
+                String input = "Level";
 
-                PalindromeStrategy strategy = new StackStrategy(); // change to DequeStrategy if needed
+                PalindromeStrategy[] strategies = {
+                        new StackStrategy(),
+                        new DequeStrategy(),
+                        new TwoPointerStrategy()
+                };
 
-                boolean isPalindrome = strategy.check(input);
+                for (PalindromeStrategy strategy : strategies) {
 
-                System.out.println("Input: " + input);
-                System.out.println("Is Palindrome?: " + isPalindrome);
+                    long startTime = System.nanoTime();
+                    boolean isPalindrome = strategy.check(input);
+                    long endTime = System.nanoTime();
+                    long duration = endTime - startTime;
+
+                    System.out.println("Strategy: " + strategy.getClass().getSimpleName());
+                    System.out.println("Input: " + input);
+                    System.out.println("Is Palindrome?: " + isPalindrome);
+                    System.out.println("Execution Time: " + duration + " ns");
+                    System.out.println("--------------------------------");
+                }
             }
         }
 
@@ -28,19 +41,13 @@ public class PalindromeCheckerApp {
         class StackStrategy implements PalindromeStrategy {
 
             public boolean check(String input) {
-
                 java.util.Stack<Character> stack = new java.util.Stack<>();
-
-                for (char c : input.toCharArray()) {
+                for (char c : input.toLowerCase().toCharArray()) {
                     stack.push(c);
                 }
-
-                for (char c : input.toCharArray()) {
-                    if (c != stack.pop()) {
-                        return false;
-                    }
+                for (char c : input.toLowerCase().toCharArray()) {
+                    if (c != stack.pop()) return false;
                 }
-
                 return true;
             }
         }
@@ -48,19 +55,27 @@ public class PalindromeCheckerApp {
         class DequeStrategy implements PalindromeStrategy {
 
             public boolean check(String input) {
-
                 java.util.Deque<Character> deque = new java.util.ArrayDeque<>();
-
-                for (char c : input.toCharArray()) {
+                for (char c : input.toLowerCase().toCharArray()) {
                     deque.addLast(c);
                 }
-
                 while (deque.size() > 1) {
-                    if (!deque.removeFirst().equals(deque.removeLast())) {
-                        return false;
-                    }
+                    if (!deque.removeFirst().equals(deque.removeLast())) return false;
                 }
+                return true;
+            }
+        }
 
+        class TwoPointerStrategy implements PalindromeStrategy {
+
+            public boolean check(String input) {
+                String s = input.toLowerCase();
+                int start = 0, end = s.length() - 1;
+                while (start < end) {
+                    if (s.charAt(start) != s.charAt(end)) return false;
+                    start++;
+                    end--;
+                }
                 return true;
             }
         }
