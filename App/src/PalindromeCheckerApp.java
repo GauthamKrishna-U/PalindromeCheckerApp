@@ -11,21 +11,16 @@ public class PalindromeCheckerApp {
 
 UC7-Deque-BasedOptimizedPalindromeChecker
 
-                String input = "refer";
+                String input = "A man a plan a canal Panama";
 
-                Deque<Character> deque = new ArrayDeque<>();
-
-                for (char c : input.toCharArray()) {
-                    deque.addLast(c);
-                }
+                String normalized = input.replaceAll("[^a-zA-Z]", "").toLowerCase();
 
                 boolean isPalindrome = true;
 
-                while (deque.size() > 1) {
-                    char front = deque.removeFirst();
-                    char rear = deque.removeLast();
+                for (int i = 0; i < normalized.length() / 2; i++) {
 
-                    if (front != rear) {
+                    if (normalized.charAt(i) !=
+                            normalized.charAt(normalized.length() - 1 - i)) {
                         isPalindrome = false;
                         break;
                     }
