@@ -2,6 +2,8 @@
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class PalindromeCheckerApp {
 
