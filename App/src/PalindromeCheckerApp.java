@@ -7,32 +7,56 @@ public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-                String input = "racecar";
 
-                PalindromeService service = new PalindromeService();
+                String input = "level";
 
-                boolean isPalindrome = service.checkPalindrome(input);
+                PalindromeStrategy strategy = new StackStrategy(); // change to DequeStrategy if needed
+
+                boolean isPalindrome = strategy.check(input);
 
                 System.out.println("Input: " + input);
                 System.out.println("Is Palindrome?: " + isPalindrome);
             }
         }
 
-        class PalindromeService {
+        interface PalindromeStrategy {
+            boolean check(String input);
+        }
 
-            public boolean checkPalindrome(String input) {
+        class StackStrategy implements PalindromeStrategy {
 
-                int start = 0;
-                int end = input.length() - 1;
+            public boolean check(String input) {
 
-                while (start < end) {
+                java.util.Stack<Character> stack = new java.util.Stack<>();
 
-                    if (input.charAt(start) != input.charAt(end)) {
+                for (char c : input.toCharArray()) {
+                    stack.push(c);
+                }
+
+                for (char c : input.toCharArray()) {
+                    if (c != stack.pop()) {
                         return false;
                     }
+                }
 
-                    start++;
-                    end--;
+                return true;
+            }
+        }
+
+        class DequeStrategy implements PalindromeStrategy {
+
+            public boolean check(String input) {
+
+                java.util.Deque<Character> deque = new java.util.ArrayDeque<>();
+
+                for (char c : input.toCharArray()) {
+                    deque.addLast(c);
+                }
+
+                while (deque.size() > 1) {
+                    if (!deque.removeFirst().equals(deque.removeLast())) {
+                        return false;
+                    }
                 }
 
                 return true;
