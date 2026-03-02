@@ -7,26 +7,34 @@ public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        String input = "civic";
-        Queue<Character> queue = new LinkedList<>();
-        Stack<Character> stack = new Stack<>();
+                String input = "racecar";
 
-        for (char c : input.toCharArray()) {
-            queue.add(c);
-            stack.push(c);
-        }
+                PalindromeService service = new PalindromeService();
 
-        boolean isPalindrome = true;
+                boolean isPalindrome = service.checkPalindrome(input);
 
-        while (!queue.isEmpty()) {
-            if (!queue.poll().equals(stack.pop())) {
-                isPalindrome = false;
-                break;
+                System.out.println("Input: " + input);
+                System.out.println("Is Palindrome?: " + isPalindrome);
             }
         }
 
-        System.out.println("Input: " + input);
-        System.out.println("Is Palindrome?: " + isPalindrome);
-    }
-}
-```
+        class PalindromeService {
+
+            public boolean checkPalindrome(String input) {
+
+                int start = 0;
+                int end = input.length() - 1;
+
+                while (start < end) {
+
+                    if (input.charAt(start) != input.charAt(end)) {
+                        return false;
+                    }
+
+                    start++;
+                    end--;
+                }
+
+                return true;
+            }
+        }
