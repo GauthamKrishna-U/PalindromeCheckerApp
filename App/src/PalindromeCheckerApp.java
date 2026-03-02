@@ -10,19 +10,19 @@ public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
 
-                String input = "refer";
+                String input = "level";
 
-                Deque<Character> deque = new ArrayDeque<>();
+                LinkedList<Character> list = new LinkedList<>();
 
                 for (char c : input.toCharArray()) {
-                    deque.addLast(c);
+                    list.addLast(c);
                 }
 
                 boolean isPalindrome = true;
 
-                while (deque.size() > 1) {
-                    char front = deque.removeFirst();
-                    char rear = deque.removeLast();
+                while (list.size() > 1) {
+                    char front = list.removeFirst();
+                    char rear = list.removeLast();
 
                     if (front != rear) {
                         isPalindrome = false;
